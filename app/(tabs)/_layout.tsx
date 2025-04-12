@@ -61,6 +61,16 @@ export default class _layout extends Component {
             ),
           }}
         />
+          <Tabs.Screen
+            name="search"
+            options={{
+              title: "Search",
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcons focused={focused} icon={icons.search} title={"Search"} />
+              ),
+            }}
+          />
         <Tabs.Screen
           name="saved"
           options={{
@@ -69,19 +79,9 @@ export default class _layout extends Component {
             tabBarIcon: ({ focused }) => (
               <TabIcons
                 focused={focused}
-                icon={icons.search}
-                title={"Search"}
+                icon={icons.save}
+                title={"saved"}
               />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="search"
-          options={{
-            title: "Search",
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TabIcons focused={focused} icon={icons.save} title={"Saved"} />
             ),
           }}
         />
