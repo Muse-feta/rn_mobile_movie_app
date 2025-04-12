@@ -1,3 +1,7 @@
+// API Read Access Token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjQxZGU5N2M4MTNkYzM0YjY3NTA0NTVkMDYyNjZkYSIsIm5iZiI6MTY5NDc5MjU4Mi44MjIsInN1YiI6IjY1MDQ3Yjg2NjNhYWQyMDBmZTJiODJhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nqxPrd0vgK5Ry_oyMRznWC43CqFqQgYo_tsXVGXKa2Y
+
+// API Key: ff41de97c813dc34b6750455d06266da
+
 import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
