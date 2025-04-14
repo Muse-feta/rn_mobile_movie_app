@@ -1,27 +1,63 @@
-// API Read Access Token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjQxZGU5N2M4MTNkYzM0YjY3NTA0NTVkMDYyNjZkYSIsIm5iZiI6MTY5NDc5MjU4Mi44MjIsInN1YiI6IjY1MDQ3Yjg2NjNhYWQyMDBmZTJiODJhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nqxPrd0vgK5Ry_oyMRznWC43CqFqQgYo_tsXVGXKa2Y
-
-// API Key: ff41de97c813dc34b6750455d06266da
 
 import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { Link } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, FlatListComponent, Image, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import { fetchMovies } from "@/services/api";
+import useFetch from "@/services/useFetch";
+import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
   const router = useRouter();
+
+  // fetching movies data
+  const { data: movies, loading: loadingMovies, error: errorMovies } = useFetch(() => fetchMovies({
+    query: "inters",
+  }))
+
   return (
     <View className="flex-1 bg-primary">
       <Image source={images.bg} className="absolute w-full z-0"></Image>
       <ScrollView className="flex-1 px-5" showsVerticalScrollIndicator={false} contentContainerStyle={{minHeight: "100%", paddingBottom: 10}}>
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
-        <View className="flex-1 mt-5">
+
+        {loadingMovies ? (
+          <ActivityIndicator
+            size="large"
+            color="#0000ff"
+            className="mt-10 self-center"
+          />
+        ) : errorMovies ? (
+          <Text>Error: {errorMovies?.message}</Text>
+        ) : (
+           <View className="flex-1 mt-5">
         <SearchBar 
         onPress={() => router.push("/search")}
         placeholder="What do you want to watch?"
         />
+
+        <>
+        <Text className="text-lg text-white font-bold mt-5 mb-3">Latest Movies</Text>
+
+        <FlatList
+          data={movies}
+          renderItem={({ item }) => (
+            <MovieCard
+            {...item}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={3}
+          columnWrapperStyle={{justifyContent: "flex-start", gap: 20, paddingRight: 5, marginBottom: 10}}
+          className="mt-2 pb-32"
+          scrollEnabled={false}
+        />
+        </>
       </View>
+        )}
+       
       </ScrollView>
 
     </View>
