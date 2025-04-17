@@ -17,6 +17,8 @@ export default function serach() {
   }), false);
 
   useEffect(() => {
+
+    // this means debounce method
     const timeoutId = setTimeout(async () => {
       if (serachQuery) {
         await loadMovies();
