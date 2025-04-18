@@ -7,28 +7,40 @@ import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import MovieCard from "@/components/MovieCard";
 import { useEffect, useState } from "react";
+import { updateSearchCount } from "@/services/appwrite";
 
 export default function serach() {
-  const [serachQuery, setSerachQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // fetching movies data
-  const { data: movies, loading, error,refetch: loadMovies, reset } = useFetch(() => fetchMovies({
-    query: serachQuery,
-  }), false);
+  const {
+    data: movies,
+    loading,
+    error,
+    refetch: loadMovies,
+    reset,
+  } = useFetch(
+    () =>
+      fetchMovies({
+        query: searchQuery,
+      }),
+    false
+  );
 
   useEffect(() => {
+    updateSearchCount(searchQuery, movies);
 
     // this means debounce method
     const timeoutId = setTimeout(async () => {
-      if (serachQuery) {
+      if (searchQuery) {
         await loadMovies();
       } else {
         reset();
       }
-    },1000)
-   
+    }, 1000);
+
     return () => clearTimeout(timeoutId);
-  }, [serachQuery])
+  }, [searchQuery]);
 
   return (
     <View className="flex-1 bg-primary">
@@ -55,8 +67,8 @@ export default function serach() {
               <SearchBar
                 // onPress={() => router.push("/search")}
                 placeholder="What do you want to watch?"
-                value={serachQuery}
-                onChangeText={(text: string) => setSerachQuery(text)}
+                value={searchQuery}
+                onChangeText={(text: string) => setSearchQuery(text)}
               />
             </View>
 
@@ -67,13 +79,15 @@ export default function serach() {
                 className="my-3"
               />
             ) : error ? (
-              <Text className="text-red-500 px-5 my-3">Error: {error?.message}</Text>
+              <Text className="text-red-500 px-5 my-3">
+                Error: {error?.message}
+              </Text>
             ) : null}
 
-            {!loading && !error && serachQuery.trim() && movies?.length > 0 && (
+            {!loading && !error && searchQuery.trim() && movies?.length > 0 && (
               <Text className="text-white font-bold ">
-                Search Results for{' '}
-                <Text className="text-accent">{serachQuery}</Text>
+                Search Results for{" "}
+                <Text className="text-accent">{searchQuery}</Text>
               </Text>
             )}
           </>
@@ -82,7 +96,7 @@ export default function serach() {
           !loading && !error ? (
             <View className="mt-10 px-5">
               <Text className="text-center text-gray-500">
-                {serachQuery.trim() ? 'No Movies Found' : 'Search for a movie'}
+                {searchQuery.trim() ? "No Movies Found" : "Search for a movie"}
               </Text>
             </View>
           ) : null
