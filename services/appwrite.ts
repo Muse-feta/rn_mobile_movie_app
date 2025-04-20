@@ -14,6 +14,7 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (query: string, movie: Movie) => {
+  console.log(query, movie);
 
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
@@ -24,7 +25,7 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
 
     if (result.documents.length > 0) {
       const exsitingMovie = result.documents[0];
-      await database.updateDocument(
+      const res = await database.updateDocument(
         DATABASE_ID,
         COLLECTION_ID,
         exsitingMovie.$id,
@@ -32,6 +33,7 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
           count: exsitingMovie.count + 1,
         }
       );
+      console.log(res);
     } else {
       const res = await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
         searchTerm: query,

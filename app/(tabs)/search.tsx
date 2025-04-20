@@ -36,7 +36,7 @@ export default function serach() {
         await loadMovies();
         
         if(movies?.length > 0 && movies?.[0]){
-
+          console.log(movies[0]);
           await updateSearchCount(searchQuery, movies[0]);
         }
       } else {
