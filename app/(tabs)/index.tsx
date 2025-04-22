@@ -9,13 +9,13 @@ import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import MovieCard from "@/components/MovieCard";
 
-export default function Index() {
+export default function index() {
   const router = useRouter();
 
   // fetching movies data
   const { data: movies, loading: loadingMovies, error: errorMovies } = useFetch(() => fetchMovies({
     query: "",
-  }))
+  }));
 
   return (
     <View className="flex-1 bg-primary">
