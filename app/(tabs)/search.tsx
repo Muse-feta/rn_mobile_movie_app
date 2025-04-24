@@ -65,11 +65,16 @@ export default function serach() {
 
   // 🆕 useEffect to handle side-effect after movies update
 useEffect(() => {
-  if (movies?.length > 0 && searchQuery.trim() && !calledRef.current) {
-    calledRef.current = true;
+  // Debounce: Delay the action until the user stops typing for 500ms
+  const timeoutId = setTimeout(() => {
+    if (movies?.length > 0 && searchQuery.trim() && !calledRef.current) {
+      calledRef.current = true;
+      updateSearchCount(searchQuery, movies[0]);
+    }
+  }, 2000); // Adjust the timeout duration (500ms) as needed
 
-    updateSearchCount(searchQuery, movies[0]);
-  }
+  // Clear the timeout if `searchQuery` or `movies` changes before 500ms
+  return () => clearTimeout(timeoutId);
 }, [movies, searchQuery]);
 
 useEffect(() => {
