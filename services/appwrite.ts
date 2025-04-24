@@ -14,7 +14,7 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (query: string, movie: Movie) => {
-  console.log(query, movie);
+  // console.log("🔥 updateSearchCount triggered with:", query, movie);
 
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [

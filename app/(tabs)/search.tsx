@@ -8,9 +8,11 @@ import useFetch from "@/services/useFetch";
 import MovieCard from "@/components/MovieCard";
 import { useEffect, useState } from "react";
 import { updateSearchCount } from "@/services/appwrite";
+import { useRef } from "react";
 
 export default function serach() {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const calledRef = useRef(false);
 
   // fetching movies data
   const {
@@ -27,18 +29,32 @@ export default function serach() {
     false
   );
 
-  useEffect(() => {
+  // useEffect(() => {
     
 
-    // this means debounce method
+  //   // this means debounce method
+  //   const timeoutId = setTimeout(async () => {
+  //     if (searchQuery.trim()) {
+  //       await loadMovies();
+  //       console.log('console log from line 37 is -------->>',movies.length);
+        
+  //       if(movies?.length > 0 && movies?.[0]){
+  //         console.log(movies[0]);
+  //         await updateSearchCount(searchQuery, movies[0]);
+  //       }
+  //     } else {
+  //       reset();
+  //     }
+  //   }, 1000);
+
+  //   return () => clearTimeout(timeoutId);
+  // }, [searchQuery]);
+
+
+  useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
-        await loadMovies();
-        
-        if(movies?.length > 0 && movies?.[0]){
-          console.log(movies[0]);
-          await updateSearchCount(searchQuery, movies[0]);
-        }
+        await loadMovies(); // trigger refetch
       } else {
         reset();
       }
@@ -46,6 +62,19 @@ export default function serach() {
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
+
+  // 🆕 useEffect to handle side-effect after movies update
+useEffect(() => {
+  if (movies?.length > 0 && searchQuery.trim() && !calledRef.current) {
+    calledRef.current = true;
+
+    updateSearchCount(searchQuery, movies[0]);
+  }
+}, [movies, searchQuery]);
+
+useEffect(() => {
+  calledRef.current = false;
+}, [searchQuery]);
 
   return (
     <View className="flex-1 bg-primary">
@@ -110,5 +139,3 @@ export default function serach() {
     </View>
   );
 }
-// 1000 41 35 19 547
-// 0913 89 08 98

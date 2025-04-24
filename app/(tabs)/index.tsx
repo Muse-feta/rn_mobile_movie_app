@@ -17,6 +17,8 @@ export default function index() {
     query: "",
   }));
 
+  // console.log(movies);
+
   return (
     <View className="flex-1 bg-primary">
       <Image source={images.bg} className="absolute w-full z-0"></Image>
