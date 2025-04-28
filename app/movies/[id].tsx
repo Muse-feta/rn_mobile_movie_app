@@ -30,6 +30,9 @@ const MovieDetails = () => {
   return (
     <View className="bg-primary flex-1">
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+        <TouchableOpacity className="absolute top-11 right-5 bg-primary p-2 rounded-full z-10 size-16 flex justify-center items-center">
+          <Image source={icons.save} tintColor="#a8b5db" className="size-8 " />
+        </TouchableOpacity>
         <View>
           <Image
             source={{
@@ -74,11 +77,20 @@ const MovieDetails = () => {
           <View className=" flex flex-row justify-between w-1/2">
             <MovieInfo
               label="Budget"
-              value={`$${movie?.budget / 1_000_000} Million USD  ` || "N/A"}
+              value={
+                movie?.budget
+                  ? `$${movie.budget / 1_000_000} Million USD`
+                  : "N/A"
+              }
             />
+
             <MovieInfo
               label="Revenue"
-              value={`$${Math.round(movie?.revenue) / 1_000_000}`}
+              value={
+                movie?.revenue
+                  ? `$${Math.round(movie?.revenue) / 1_000_000} Million USD`
+                  : "N/A"
+              }
             />
           </View>
 
@@ -93,9 +105,16 @@ const MovieDetails = () => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity className='absolute bottom-5 left-0 right-0 mx-5  bg-accent rounded-full py-3.5 flex flex-row items-center justify-center z-50' onPress={router.back}>
-        <Image source={icons.arrow} className='size-5 mr-1 mt-0.5 rotate-180' tintColor="#fff"/>
-        <Text className=' text-white font-semibold text-base'>Go Back</Text>
+      <TouchableOpacity
+        className="absolute bottom-5 left-0 right-0 mx-5  bg-accent rounded-full py-3.5 flex flex-row items-center justify-center z-50"
+        onPress={router.back}
+      >
+        <Image
+          source={icons.arrow}
+          className="size-5 mr-1 mt-0.5 rotate-180"
+          tintColor="#fff"
+        />
+        <Text className=" text-white font-semibold text-base">Go Back</Text>
       </TouchableOpacity>
     </View>
   );

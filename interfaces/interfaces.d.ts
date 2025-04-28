@@ -32,7 +32,7 @@ interface MovieDetails {
     poster_path: string;
     backdrop_path: string;
   } | null;
-  budget: number;
+  budget: number | undefined;
   genres: {
     id: number;
     name: string;
