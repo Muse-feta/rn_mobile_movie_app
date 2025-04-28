@@ -75,3 +75,10 @@ interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
 }
+
+interface AuthContextType {
+  session: boolean;
+  user: boolean;
+  signIn: () => void;
+  signOut: () => void;
+};

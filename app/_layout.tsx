@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 import "./global.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 export default function RootLayout() {
   return (
-    <>
+    <AuthProvider>
       {/* Make the status bar transparent */}
       <StatusBar
         translucent
@@ -23,6 +24,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="movies/[id]" options={{ headerShown: false }} />
       </Stack>
-    </>
+    </AuthProvider>
   );
 }
