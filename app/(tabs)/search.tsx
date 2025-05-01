@@ -29,26 +29,6 @@ export default function serach() {
     false
   );
 
-  // useEffect(() => {
-    
-
-  //   // this means debounce method
-  //   const timeoutId = setTimeout(async () => {
-  //     if (searchQuery.trim()) {
-  //       await loadMovies();
-  //       console.log('console log from line 37 is -------->>',movies.length);
-        
-  //       if(movies?.length > 0 && movies?.[0]){
-  //         console.log(movies[0]);
-  //         await updateSearchCount(searchQuery, movies[0]);
-  //       }
-  //     } else {
-  //       reset();
-  //     }
-  //   }, 1000);
-
-  //   return () => clearTimeout(timeoutId);
-  // }, [searchQuery]);
 
 
   useEffect(() => {

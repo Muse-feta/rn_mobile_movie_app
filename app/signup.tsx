@@ -10,14 +10,14 @@ import { images } from "@/constants/images";
 import { Link } from "expo-router";
 import AuthForm from "@/components/AuthForm";
 
-export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSignIn = () => {
-    // handle login logic here
-  };
-
+const signup = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPass, setConfirmPass] = useState("");
+  
+    const handleSignIn = () => {
+      // handle login logic here
+    };
   return (
     <ImageBackground
       source={images.bgimage}
@@ -36,17 +36,24 @@ export default function SignIn() {
       >
         <View className="gap-5">
           <Text className="text-white font-bold text-xl text-center">
-            Sign In
+            Sign Up
           </Text>
 
-          <AuthForm formType="signin" onSubmit={handleSignIn}/>
-
+         <AuthForm formType="signup" onSubmit={handleSignIn}/>
           <Text className=" text-gray-500 text-base text-center">
-            Don’t have an account? <Link className=" text-accent font-extrabold text-md underline " href="/signup">Sign up</Link> now to get
-            started.
+            Already have an account?{" "}
+            <Link
+              className=" text-accent font-extrabold text-md underline "
+              href="/signin"
+            >
+              Sign in
+            </Link>{" "}
+            here.
           </Text>
         </View>
       </View>
     </ImageBackground>
   );
 }
+
+export default signup

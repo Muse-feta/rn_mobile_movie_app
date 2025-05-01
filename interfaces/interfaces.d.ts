@@ -82,3 +82,20 @@ interface AuthContextType {
   signIn: () => void;
   signOut: () => void;
 };
+
+interface AuthFieldProps {
+    value: string
+    onChangeText: (text: string) => void
+    placeholder: string
+    secureTextEntry?: boolean
+};
+
+interface AuthButtonProps {
+  onPress: () => void;
+  label: string;
+}
+
+interface AuthFormProps {
+  formType: string;
+  onSubmit: () => void;
+}
