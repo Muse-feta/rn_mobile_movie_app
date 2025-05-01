@@ -78,8 +78,8 @@ interface TrendingCardProps {
 
 interface AuthContextType {
   session: boolean;
-  user: boolean;
-  signIn: () => void;
+  user: Models.User<Models.Preferences> | null;
+  signIn: ({ email, password }: { email: string; password: string }) => void;
   signOut: () => void;
 };
 
@@ -97,5 +97,4 @@ interface AuthButtonProps {
 
 interface AuthFormProps {
   formType: string;
-  onSubmit: () => void;
 }

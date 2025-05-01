@@ -39,7 +39,7 @@ const signup = () => {
             Sign Up
           </Text>
 
-         <AuthForm formType="signup" onSubmit={handleSignIn}/>
+         <AuthForm formType="signup" />
           <Text className=" text-gray-500 text-base text-center">
             Already have an account?{" "}
             <Link

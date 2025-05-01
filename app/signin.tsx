@@ -9,14 +9,10 @@ import { useState } from "react";
 import { images } from "@/constants/images";
 import { Link } from "expo-router";
 import AuthForm from "@/components/AuthForm";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSignIn = () => {
-    // handle login logic here
-  };
 
   return (
     <ImageBackground
@@ -39,7 +35,7 @@ export default function SignIn() {
             Sign In
           </Text>
 
-          <AuthForm formType="signin" onSubmit={handleSignIn}/>
+          <AuthForm formType="signin" />
 
           <Text className=" text-gray-500 text-base text-center">
             Don’t have an account? <Link className=" text-accent font-extrabold text-md underline " href="/signup">Sign up</Link> now to get
