@@ -1,4 +1,9 @@
-import { getCurrentUser, signInAppwrite, signOutAppwrite } from "@/services/appwrite";
+import {
+  getCurrentUser,
+  signInAppwrite,
+  signOutAppwrite,
+  signUpAppwrite,
+} from "@/services/appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Text } from "react-native";
 import { Models } from "react-native-appwrite";
@@ -9,9 +14,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext<AuthContextType>({
   session: false,
-  user: false ,
+  user: false,
   signIn: () => {},
   signOut: () => {},
+  signUp: () => {},
 });
 
 const AuthProvider = ({ children }: any) => {
@@ -54,6 +60,30 @@ const AuthProvider = ({ children }: any) => {
       checkUser();
     }, []);
 
+    const signUp = async ({
+      email,
+      password,
+      username,
+    }: {
+      email: string;
+      password: string;
+      username: string;
+    }) => {
+        console.log("📝 signUp triggered with:", email);
+        setLoading(true);
+        try {
+          // Create user account
+          await signUpAppwrite(email, password, username);
+
+          // Automatically sign in the user after signup
+          await signIn({ email, password });
+        } catch (error) {
+          console.error("❌ Signup error:", error);
+        } finally {
+          setLoading(false);
+        }
+    };
+
     const signIn = async ({email, password} : {email: string, password: string}) => {
       console.log("🔥 signIn triggered with:", email, password);
         setLoading(true);
@@ -85,7 +115,7 @@ const AuthProvider = ({ children }: any) => {
       }
     };
 
-    const contextData = { session, user, signIn, signOut };
+    const contextData = { session, user, signIn, signOut, signUp };
     return (
       <AuthContext.Provider value={contextData}>
         {loading ? (

@@ -87,6 +87,15 @@ export const signOutAppwrite = async () => {
   }
 };
 
+export const signUpAppwrite = async (
+  email: string,
+  password: string,
+  name: string
+) => {
+  return await account.create(ID.unique(), email, password, name);
+};
+
+
 
 
 

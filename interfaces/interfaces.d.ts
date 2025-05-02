@@ -81,6 +81,7 @@ interface AuthContextType {
   user: Models.User<Models.Preferences> | null;
   signIn: ({ email, password }: { email: string; password: string }) => void;
   signOut: () => void;
+  signUp: ({ email, password, username }: { email: string; password: string; username: string }) => void;
 };
 
 interface AuthFieldProps {
