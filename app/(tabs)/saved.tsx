@@ -3,9 +3,14 @@ import React from 'react'
 import { icons } from '@/constants/icons'
 import { router } from 'expo-router'
 import { useAuth } from '@/context/AuthContext'
+import NavButton from '@/components/NavButton'
 
 const saved = () => {
-  const { session } = useAuth();
+  const { session, signOut } = useAuth();
+
+   const handleSignOut = () => {
+     signOut();
+   };
   return (
     <View className=" bg-primary flex-1  p-10">
       {session ? (
@@ -14,6 +19,7 @@ const saved = () => {
           <Text className=" text-gray-500 text-base text-center">
             Saved Movies
           </Text>
+          <NavButton buttonType="signout" label="Sign Out" onPress={handleSignOut}/>
         </View>
       ) : (
         <View className=" flex justify-center items-center flex-1 flex-col gap-5">

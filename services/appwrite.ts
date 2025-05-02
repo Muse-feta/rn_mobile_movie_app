@@ -78,3 +78,15 @@ export const getCurrentUser = async () => {
   return await account.get();
 };
 
+export const signOutAppwrite = async () => {
+  try {
+    await account.deleteSession("current");
+  } catch (error) {
+    console.error("Sign out failed:", error);
+    throw error;
+  }
+};
+
+
+
+

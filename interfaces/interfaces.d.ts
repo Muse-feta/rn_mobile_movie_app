@@ -98,3 +98,9 @@ interface AuthButtonProps {
 interface AuthFormProps {
   formType: string;
 }
+
+interface NavButtonProps {
+  buttonType: string;
+  label: string;
+  onPress: () => void;
+}
